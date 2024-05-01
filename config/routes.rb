@@ -1,10 +1,25 @@
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+  get 'payments/process_payment'
+  
+  # Kullanıcı kaydı ve girişi için özel rotalar
+  resources :sessions, only: [:create, :destroy]
+  post '/register', to: 'users#create', as: :register
+  post '/login', to: 'sessions#create', as: :login
+  delete '/logout', to: 'sessions#destroy', as: :logout
 
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
-  get "up" => "rails/health#show", as: :rails_health_check
+  # Kitaplarla ilgili rotalar
+  resources :books, only: [:index, :show, :create, :update, :destroy]
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+  # Sepet öğeleriyle ilgili rotalar
+  resources :cart_items, only: [:index, :show, :create, :update, :destroy]
+
+  # Sepet ile ilgili rotalar
+  resources :carts, only: [:index, :show, :create, :update, :destroy]
+
+  # Sağlık durumu kontrolü için rota
+  get '/up', to: 'rails/health#show', as: :rails_health_check
+
+  # Kullanıcı kaydı ve girişi için yeni sayfalar için rotalar
+  get '/signup', to: 'users#new', as: :signup
+  get '/signin', to: 'sessions#new', as: :signin
 end

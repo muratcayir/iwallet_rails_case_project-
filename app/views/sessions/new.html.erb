@@ -1,0 +1,19 @@
+<h1>Login</h1>
+
+<%= form_with(scope: :session, url: session_path, local: true) do |form| %>
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :session_username %>
+  </div>
+
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, id: :session_password %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Log in" %>
+  </div>
+<% end %>
+
+<%= link_to 'Sign up', new_user_path %>
