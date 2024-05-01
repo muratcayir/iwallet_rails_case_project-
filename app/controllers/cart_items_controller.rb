@@ -1,6 +1,6 @@
 class CartItemsController < ApplicationController
-
-  before_action :set_cart_item, only: [:update, :destroy]
+  before_action :authenticate_request!
+  before_action :set_cart_item, only: [:show, :update, :destroy]
 
   # GET /cart_items
   def index
@@ -16,6 +16,7 @@ class CartItemsController < ApplicationController
   # POST /cart_items
   def create
     @cart_item = CartItem.new(cart_item_params)
+    @cart_item.calculate_subtotal  # Calculate subtotal
     if @cart_item.save
       render json: @cart_item, status: :created
     else
@@ -26,15 +27,18 @@ class CartItemsController < ApplicationController
   # PATCH/PUT /cart_items/:id
   def update
     if @cart_item.update(cart_item_params)
+      @cart_item.calculate_subtotal  
       render json: @cart_item
     else
       render json: @cart_item.errors, status: :unprocessable_entity
     end
   end
 
+
   # DELETE /cart_items/:id
   def destroy
     @cart_item.destroy
+    update_cart_subtotal
     render json: { message: 'Cart item was successfully destroyed' }, status: :ok
   end
 
@@ -47,6 +51,6 @@ class CartItemsController < ApplicationController
 
   # Only allow a trusted parameter "white list" through
   def cart_item_params
-    params.require(:cart_item).permit(:cart_id, :book_id, :quantity)
+    params.require(:cart_item).permit(:cart_id, :book_id, :quantity, :subtotal)
   end
 end

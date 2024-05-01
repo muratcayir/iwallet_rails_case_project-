@@ -4,14 +4,12 @@ class PaymentsController < ApplicationController
 
   # POST /process_payment
   def process_payment
-    # Kullanıcının sepetindeki öğeleri al
-    cart_items = @user_cart.cart_items.includes(:book)
-    
-    # Sepet öğeleri ve toplam tutarı işle
-    total_price = calculate_total(cart_items)
+   
+    # Toplam sepet tutarı hesapla
+    cart_total_price = @user_cart.total_price
     
     # Ödeme işlemini simüle et (örneğin, kredi kartı doğrulaması)
-    payment_success = simulate_payment(total_price)
+    payment_success = simulate_payment(cart_total_price)
     
     if payment_success
       # Ödeme başarılı ise sepeti temizle
@@ -29,14 +27,6 @@ class PaymentsController < ApplicationController
     @user_cart = current_user.cart
   end
 
-  # Toplam tutarı hesapla
-  def calculate_total(cart_items)
-    total_price = 0
-    cart_items.each do |cart_item|
-      total_price += cart_item.book.price * cart_item.quantity
-    end
-    total_price
-  end
 
   # Ödeme işlemini simüle et
   def simulate_payment(total_price)

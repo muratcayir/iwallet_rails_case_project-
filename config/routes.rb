@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
   get 'payments/process_payment'
   
+  post '/process_payment', to: 'payments#process_payment'
   # Kullanıcı kaydı ve girişi için özel rotalar
   resources :sessions, only: [:create, :destroy]
   post '/register', to: 'users#create', as: :register
   post '/login', to: 'sessions#create', as: :login
-  delete '/logout', to: 'sessions#destroy', as: :logout
+  post '/logout', to: 'sessions#destroy', as: :logout
 
   # Kitaplarla ilgili rotalar
   resources :books, only: [:index, :show, :create, :update, :destroy]
@@ -20,6 +21,5 @@ Rails.application.routes.draw do
   get '/up', to: 'rails/health#show', as: :rails_health_check
 
   # Kullanıcı kaydı ve girişi için yeni sayfalar için rotalar
-  get '/signup', to: 'users#new', as: :signup
-  get '/signin', to: 'sessions#new', as: :signin
+
 end

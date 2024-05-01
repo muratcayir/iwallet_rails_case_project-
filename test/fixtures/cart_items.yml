@@ -4,8 +4,10 @@ one:
   cart: one
   book: one
   quantity: 1
+  subtotal: 9.99
 
 two:
   cart: two
   book: two
   quantity: 1
+  subtotal: 9.99

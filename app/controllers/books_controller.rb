@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-
+  before_action :authenticate_request!
   before_action :set_book, only: [:show, :update, :destroy]
   # GET /books
   def index
@@ -46,6 +46,6 @@ class BooksController < ApplicationController
 
   # Only allow a trusted parameter "white list" through
   def book_params
-    params.require(:book).permit(:title, :author, :description, :price)
+    params.require(:book).permit(:title, :author, :publisher, :price)
   end
 end

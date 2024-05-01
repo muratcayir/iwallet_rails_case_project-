@@ -3,11 +3,11 @@
 one:
   title: MyString
   author: MyString
-  description: MyText
+  publisher: MyText
   price: 9.99
 
 two:
   title: MyString
   author: MyString
-  description: MyText
+  publisher: MyText
   price: 9.99

@@ -1,11 +1,10 @@
-class CreateBooks < ActiveRecord::Migration[7.1]
+class CreateBooks < ActiveRecord::Migration[6.1]
   def change
     create_table :books do |t|
       t.string :title
       t.string :author
-      t.text :description
-      t.decimal :price
-
+      t.string :publisher
+      t.decimal :price, precision: 10, scale: 2
       t.timestamps
     end
   end
