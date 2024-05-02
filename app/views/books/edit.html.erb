@@ -1,0 +1,5 @@
+<h1>Kitabı Düzenle: <%= @book.title %></h1>
+
+<%= render 'form', book: @book %>
+
+<%= link_to 'Geri Dön', books_path, class: 'btn btn-secondary' %>

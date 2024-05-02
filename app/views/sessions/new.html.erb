@@ -1,6 +1,6 @@
-<h1>Login</h1>
+<h1>Kullanıcı Girişi</h1>
 
-<%= form_with(scope: :session, url: session_path, local: true) do |form| %>
+<%= form_with(url: login_path, local: true) do |form| %>
   <div class="field">
     <%= form.label :username %>
     <%= form.text_field :username, id: :session_username %>
@@ -12,8 +12,8 @@
   </div>
 
   <div class="actions">
-    <%= form.submit "Log in" %>
+    <%= form.submit "Giriş Yap", class: 'btn btn-primary' %>
   </div>
 <% end %>
 
-<%= link_to 'Sign up', new_user_path %>
+<%= link_to 'Kayıt Ol', register_path, class: 'btn btn-secondary' %>

@@ -1,35 +1,30 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>User Authentication</title>
-</head>
-<body>
-  <% if session[:user_id] %>
-    <p>Welcome, <%= @current_user.username %>!</p>
-    <%= link_to 'Logout', logout_path, method: :delete %>
-  <% else %>
-    <%= form_with(url: login_path, method: :post) do |form| %>
-      <div>
-        <%= form.label :username %>
-        <%= form.text_field :username %>
-      </div>
-      <div>
-        <%= form.label :password %>
-        <%= form.password_field :password %>
-      </div>
-      <div>
-        <%= form.submit 'Login' %>
-      </div>
-    <% end %>
-    <p><%= link_to 'Register', register_path %></p>
+<h1>Kullanıcı Kaydı</h1>
+
+<%= form_with(model: @user, url: register_path, local: true) do |form| %>
+  <% if @user.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@user.errors.count, "error") %> prevented this user from being saved:</h2>
+      <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
   <% end %>
 
-  <% if notice %>
-    <p><%= notice %></p>
-  <% end %>
+  <div class="field">
+    <%= form.label :username %>
+    <%= form.text_field :username, id: :user_username %>
+  </div>
 
-  <% if alert %>
-    <p><%= alert %></p>
-  <% end %>
-</body>
-</html>
+  <div class="field">
+    <%= form.label :password %>
+    <%= form.password_field :password, id: :user_password %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit "Kaydet", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<%= link_to 'Giriş Yap', login_path, class: 'btn btn-secondary' %>

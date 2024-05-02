@@ -1,0 +1,25 @@
+<h1>Kitap Detayları</h1>
+
+<div>
+  <strong>Başlık:</strong>
+  <%= @book.title %>
+</div>
+
+<div>
+  <strong>Yazar:</strong>
+  <%= @book.author %>
+</div>
+
+<div>
+  <strong>Yayıncı:</strong>
+  <%= @book.publisher %>
+</div>
+
+<div>
+  <strong>Fiyat:</strong>
+  <%= number_to_currency(@book.price) %>
+</div>
+
+<%= link_to 'Düzenle', edit_book_path(@book), class: 'btn btn-primary' %>
+<%= link_to 'Sil', book_path(@book), method: :delete, data: { confirm: 'Bu kitabı silmek istediğinizden emin misiniz?' }, class: 'btn btn-danger' %>
+<%= link_to 'Tüm Kitaplar', books_path, class: 'btn btn-secondary' %>

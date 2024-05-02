@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  get 'payments/process_payment'
-  
+  root 'users#new'
   post '/process_payment', to: 'payments#process_payment'
   # Kullanıcı kaydı ve girişi için özel rotalar
   resources :sessions, only: [:create, :destroy]

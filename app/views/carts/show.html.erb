@@ -1,0 +1,42 @@
+<!-- app/views/carts/show.html.erb -->
+
+<h1>Sepetiniz</h1>
+
+<% if @cart.cart_items.any? %>
+  <table>
+    <thead>
+      <tr>
+        <th>Kitap Adı</th>
+        <th>Miktar</th>
+        <th>Birim Fiyat</th>
+        <th>Alt Toplam</th>
+        <th>İşlemler</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @cart.cart_items.each do |item| %>
+        <tr>
+          <td><%= item.book.title %></td>
+          <td><%= item.quantity %></td>
+          <td><%= number_to_currency(item.book.price) %></td>
+          <td><%= number_to_currency(item.subtotal) %></td>
+          <td>
+            <%= link_to 'Sil', cart_item_path(item), method: :delete, data: { confirm: 'Bu öğeyi sepetinizden çıkarmak istediğinizden emin misiniz?' }, class: 'btn btn-danger' %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"><strong>Total:</strong></td>
+        <td><%= number_to_currency(@cart.total_price) %></td>
+      </tr>
+    </tfoot>
+  </table>
+
+  <%= link_to 'Öde', process_payment_path, method: :post, class: 'btn btn-success' %>
+<% else %>
+  <p>Sepetiniz boş.</p>
+<% end %>
+
+<%= link_to 'Kitap Listesi', books_path, class: 'btn btn-secondary' %>

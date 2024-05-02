@@ -39,12 +39,10 @@ class BooksController < ApplicationController
 
   private
 
-  # Set the book before performing actions
   def set_book
     @book = Book.find(params[:id])
   end
 
-  # Only allow a trusted parameter "white list" through
   def book_params
     params.require(:book).permit(:title, :author, :publisher, :price)
   end
