@@ -1,23 +1,22 @@
-<h1>Sepet Öğesi Detayları</h1>
-
 <p>
-  <strong>Kitap Adı:</strong>
-  <%= @cart_item.book.title %>
+  <strong>Cart:</strong>
+  <%= @cart_item.cart_id %>
 </p>
 
 <p>
-  <strong>Miktar:</strong>
+  <strong>Book:</strong>
+  <%= @cart_item.book_id %>
+</p>
+
+<p>
+  <strong>Quantity:</strong>
   <%= @cart_item.quantity %>
 </p>
 
 <p>
-  <strong>Birim Fiyat:</strong>
-  <%= number_to_currency(@cart_item.book.price) %>
+  <strong>Subtotal:</strong>
+  <%= @cart_item.subtotal %>
 </p>
 
-<p>
-  <strong>Alt Toplam:</strong>
-  <%= number_to_currency(@cart_item.subtotal) %>
-</p>
-
-<%= link_to 'Sepete Dön', cart_items_path, class: 'btn btn-secondary' %>
+<%= link_to 'Edit', edit_cart_item_path(@cart_item) %> |
+<%= link_to 'Back', cart_items_path %>

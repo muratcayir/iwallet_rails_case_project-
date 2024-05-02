@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
-  root 'users#new'
+
   post '/process_payment', to: 'payments#process_payment'
   # Kullanıcı kaydı ve girişi için özel rotalar
   resources :sessions, only: [:create, :destroy]
+  resources :users, only: [:new, :create]
   post '/register', to: 'users#create', as: :register
   post '/login', to: 'sessions#create', as: :login
   post '/logout', to: 'sessions#destroy', as: :logout
@@ -20,5 +21,5 @@ Rails.application.routes.draw do
   get '/up', to: 'rails/health#show', as: :rails_health_check
 
   # Kullanıcı kaydı ve girişi için yeni sayfalar için rotalar
-
+  get '/register', to: 'users#new', as: :new_user_registration
 end

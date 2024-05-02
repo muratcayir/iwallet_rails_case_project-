@@ -5,7 +5,7 @@ class SessionsController < ApplicationController
     user = User.find_by(username: params[:username])
     if user&.authenticate(params[:password])
       token = generate_jwt(user)
-      cookies.signed[:jwt] = {value: token, httponly: true}
+      cookies.signed[:jwt] = { value: token, httponly: true }
       render json: { jwt: token }
     else
       render json: { error: 'Invalid username or password' }, status: :unauthorized

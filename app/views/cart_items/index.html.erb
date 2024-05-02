@@ -1,28 +1,29 @@
-<h1>Sepetinizdeki Ürünler</h1>
-
+<h1>Cart Items</h1>
 <table>
   <thead>
     <tr>
-      <th>Kitap Adı</th>
-      <th>Miktar</th>
-      <th>Birim Fiyat</th>
-      <th>Alt Toplam</th>
-      <th>İşlemler</th>
+      <th>Cart</th>
+      <th>Book</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+      <th colspan="3"></th>
     </tr>
   </thead>
   <tbody>
-    <% @cart_items.each do |item| %>
+    <% @cart_items.each do |cart_item| %>
       <tr>
-        <td><%= item.book.title %></td>
-        <td><%= item.quantity %></td>
-        <td><%= number_to_currency(item.book.price) %></td>
-        <td><%= number_to_currency(item.subtotal) %></td>
-        <td>
-          <%= link_to 'Sil', cart_item_path(item), method: :delete, data: { confirm: 'Bu öğeyi sepetinizden çıkarmak istediğinizden emin misiniz?' }, class: 'btn btn-danger' %>
-        </td>
+        <td><%= cart_item.cart_id %></td>
+        <td><%= cart_item.book_id %></td>
+        <td><%= cart_item.quantity %></td>
+        <td><%= cart_item.subtotal %></td>
+        <td><%= link_to 'Show', cart_item %></td>
+        <td><%= link_to 'Edit', edit_cart_item_path(cart_item) %></td>
+        <td><%= link_to 'Destroy', cart_item, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
 
-<%= link_to 'Yeni Ürün Ekle', new_cart_item_path, class: 'btn btn-success' %>
+<br>
+
+<%= link_to 'New Cart Item', new_cart_item_path %>

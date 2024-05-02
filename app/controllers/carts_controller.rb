@@ -1,16 +1,23 @@
 class CartsController < ApplicationController
+  include ActionController::MimeResponds
   before_action :authenticate_request!
   before_action :set_cart, only: [:show, :update, :destroy]
 
   # GET /carts
   def index
     @carts = Cart.all
-    render json: @carts
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @carts }
+    end
   end
 
   # GET /carts/:id
   def show
-    render json: @cart
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @cart }
+    end
   end
 
   # POST /carts
