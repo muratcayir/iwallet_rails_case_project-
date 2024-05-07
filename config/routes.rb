@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
 
-  post '/process_payment', to: 'payments#process_payment'
   # Kullanıcı kaydı ve girişi için özel rotalar
   resources :sessions, only: [:create, :destroy]
   resources :users, only: [:new, :create]
@@ -8,18 +7,17 @@ Rails.application.routes.draw do
   post '/login', to: 'sessions#create', as: :login
   post '/logout', to: 'sessions#destroy', as: :logout
 
-  # Kitaplarla ilgili rotalar
   resources :books, only: [:index, :show, :create, :update, :destroy]
 
-  # Sepet öğeleriyle ilgili rotalar
-  resources :cart_items, only: [:index, :show, :create, :update, :destroy]
-
-  # Sepet ile ilgili rotalar
-  resources :carts, only: [:index, :show, :create, :update, :destroy]
+  resource :cart, only: [:show] do
+    post 'checkout', on: :member
+    post 'clear', on: :member
+    resources :cart_items, only: [:create, :update, :destroy]
+  end
 
   # Sağlık durumu kontrolü için rota
   get '/up', to: 'rails/health#show', as: :rails_health_check
 
-  # Kullanıcı kaydı ve girişi için yeni sayfalar için rotalar
-  get '/register', to: 'users#new', as: :new_user_registration
+  # Ödeme için rotalar
+  post '/payments/process_payment', to: 'payments#process_payment'
 end
